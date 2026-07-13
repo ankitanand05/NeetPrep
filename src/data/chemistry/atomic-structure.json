@@ -1,0 +1,131 @@
+[
+  {
+    "id": "chem_atomic_001",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Bohr's Model",
+    "difficulty": "Easy",
+    "question": "According to Bohr's model, the energy of an electron in the nth orbit of hydrogen atom is proportional to:",
+    "options": [
+      "n",
+      "n²",
+      "1/n",
+      "1/n²"
+    ],
+    "correctAnswer": 3,
+    "solution": "En = -13.6/n² eV, so the energy is proportional to 1/n².",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "chem_atomic_002",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Quantum Numbers",
+    "difficulty": "Medium",
+    "question": "The maximum number of electrons that can be accommodated in the M shell (n=3) is:",
+    "options": [
+      "8",
+      "18",
+      "32",
+      "2"
+    ],
+    "correctAnswer": 1,
+    "solution": "Maximum electrons = 2n² = 2(3)² = 18.",
+    "tags": [
+      "NCERT",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "chem_atomic_003",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Quantum Numbers",
+    "difficulty": "Hard",
+    "question": "Which set of quantum numbers is not possible for an electron?",
+    "options": [
+      "n=3, l=2, m=0",
+      "n=2, l=1, m=-1",
+      "n=2, l=2, m=0",
+      "n=1, l=0, m=0"
+    ],
+    "correctAnswer": 2,
+    "solution": "The azimuthal quantum number l can range from 0 to n-1. For n=2, l can only be 0 or 1, so l=2 is not possible.",
+    "tags": [
+      "Important",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "chem_atomic_004",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Electronic Configuration",
+    "difficulty": "Medium",
+    "question": "The electronic configuration of Chromium (Z=24) is an exception because:",
+    "options": [
+      "It follows Hund's rule strictly",
+      "3d orbital is fully filled before 4s",
+      "It has half-filled 3d and fully filled 4s violated for extra stability with 3d5 4s1",
+      "4s orbital remains empty"
+    ],
+    "correctAnswer": 2,
+    "solution": "Chromium has configuration [Ar] 3d5 4s1 instead of 3d4 4s2, due to extra stability of half-filled d-orbitals.",
+    "tags": [
+      "NCERT",
+      "Important"
+    ]
+  },
+  {
+    "id": "chem_atomic_005",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Bohr's Model",
+    "difficulty": "Easy",
+    "question": "The charge on an electron was determined by:",
+    "options": [
+      "J.J. Thomson",
+      "Robert Millikan",
+      "Ernest Rutherford",
+      "Niels Bohr"
+    ],
+    "correctAnswer": 1,
+    "solution": "Robert Millikan determined the charge of an electron using his famous oil drop experiment.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "chem_atomic_006",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Physical Chemistry",
+    "chapter": "Structure of Atom",
+    "topic": "Dual Nature",
+    "difficulty": "Hard",
+    "question": "The de Broglie wavelength of an electron accelerated through a potential difference is inversely proportional to:",
+    "options": [
+      "V",
+      "√V",
+      "V²",
+      "1/V"
+    ],
+    "correctAnswer": 1,
+    "solution": "λ = h/√(2meV), so λ is inversely proportional to √V.",
+    "tags": [
+      "Important"
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "name": "NEET Practice Platform",
+  "short_name": "NEET Practice",
+  "description": "Chapter-wise NEET question practice, offline-first.",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563EB",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

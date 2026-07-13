@@ -1,0 +1,44 @@
+[
+  {
+    "id": "phy_kinematics_005",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Plane",
+    "topic": "Projectile Motion",
+    "difficulty": "Hard",
+    "question": "A ball is projected at an angle of 45° with speed 20 m/s. Find its maximum height (g = 10 m/s²).",
+    "options": ["5 m", "10 m", "15 m", "20 m"],
+    "correctAnswer": 0,
+    "solution": "H = u² sin²θ / 2g = (20² × sin²45°) / (2 × 10) = (400 × 0.5) / 20 = 10 m.",
+    "tags": ["Important", "PYQ"]
+  },
+  {
+    "id": "phy_kinematics_006",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Plane",
+    "topic": "Relative Velocity",
+    "difficulty": "Medium",
+    "question": "Two trains move towards each other at 40 km/h and 60 km/h. What is their relative velocity?",
+    "options": ["20 km/h", "60 km/h", "100 km/h", "140 km/h"],
+    "correctAnswer": 2,
+    "solution": "When moving towards each other, relative velocity = sum of speeds = 40 + 60 = 100 km/h.",
+    "tags": ["NCERT"]
+  },
+  {
+    "id": "phy_kinematics_007",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Plane",
+    "topic": "Projectile Motion",
+    "difficulty": "Hard",
+    "question": "The range of a projectile is maximum when the angle of projection is:",
+    "options": ["30°", "45°", "60°", "90°"],
+    "correctAnswer": 1,
+    "solution": "Range R = u² sin(2θ)/g is maximum when sin(2θ) = 1, i.e., θ = 45°.",
+    "tags": ["NCERT", "Important"]
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "phy_kinematics_001",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Straight Line",
+    "topic": "Velocity",
+    "difficulty": "Easy",
+    "question": "A car travels 60 km in 2 hours. What is its average speed?",
+    "options": ["20 km/h", "30 km/h", "40 km/h", "60 km/h"],
+    "correctAnswer": 1,
+    "solution": "Average speed = total distance / total time = 60 km / 2 h = 30 km/h.",
+    "tags": ["NCERT"]
+  },
+  {
+    "id": "phy_kinematics_002",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Straight Line",
+    "topic": "Velocity",
+    "difficulty": "Medium",
+    "question": "A particle moves with velocity v = 3t^2 - 2t (in m/s). Find its acceleration at t = 2 s.",
+    "options": ["8 m/s²", "10 m/s²", "12 m/s²", "14 m/s²"],
+    "correctAnswer": 1,
+    "solution": "a = dv/dt = 6t - 2. At t = 2s, a = 6(2) - 2 = 10 m/s².",
+    "tags": ["Important"]
+  },
+  {
+    "id": "phy_kinematics_003",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Straight Line",
+    "topic": "Equations of Motion",
+    "difficulty": "Easy",
+    "question": "A body starts from rest and accelerates uniformly at 2 m/s². What is its velocity after 5 s?",
+    "options": ["5 m/s", "8 m/s", "10 m/s", "20 m/s"],
+    "correctAnswer": 2,
+    "solution": "v = u + at = 0 + 2(5) = 10 m/s.",
+    "tags": ["NCERT", "PYQ"]
+  },
+  {
+    "id": "phy_kinematics_004",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Kinematics",
+    "chapter": "Motion in a Straight Line",
+    "topic": "Equations of Motion",
+    "difficulty": "Medium",
+    "question": "A stone is dropped from a height of 45 m. Taking g = 10 m/s², how long does it take to reach the ground?",
+    "options": ["2 s", "3 s", "4 s", "4.5 s"],
+    "correctAnswer": 1,
+    "solution": "h = 1/2 g t² → 45 = 1/2 (10) t² → t² = 9 → t = 3 s.",
+    "tags": ["NCERT", "PYQ"]
+  }
+]

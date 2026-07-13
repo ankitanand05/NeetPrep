@@ -1,0 +1,131 @@
+[
+  {
+    "id": "phy_laws_001",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Newton's Laws",
+    "difficulty": "Easy",
+    "question": "Newton's first law of motion is also known as the law of:",
+    "options": [
+      "Acceleration",
+      "Inertia",
+      "Momentum",
+      "Action-Reaction"
+    ],
+    "correctAnswer": 1,
+    "solution": "Newton's first law states that a body continues in its state of rest or uniform motion unless acted upon by an external force — hence called the law of inertia.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "phy_laws_002",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Momentum",
+    "difficulty": "Medium",
+    "question": "A force of 10 N acts on a body of mass 2 kg for 4 seconds. What is the change in momentum?",
+    "options": [
+      "10 kg m/s",
+      "20 kg m/s",
+      "40 kg m/s",
+      "80 kg m/s"
+    ],
+    "correctAnswer": 2,
+    "solution": "Change in momentum = Force × time = 10 × 4 = 40 kg m/s.",
+    "tags": [
+      "NCERT",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "phy_laws_003",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Friction",
+    "difficulty": "Medium",
+    "question": "The coefficient of friction between two surfaces depends on:",
+    "options": [
+      "Nature of surfaces only",
+      "Area of contact only",
+      "Normal force only",
+      "Both nature of surfaces and roughness"
+    ],
+    "correctAnswer": 3,
+    "solution": "Coefficient of friction depends on the nature and roughness of the two surfaces in contact, not on the area of contact.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "phy_laws_004",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Circular Motion",
+    "difficulty": "Hard",
+    "question": "A car of mass 1000 kg moves on a circular track of radius 50 m at 10 m/s. What is the centripetal force required?",
+    "options": [
+      "100 N",
+      "200 N",
+      "2000 N",
+      "5000 N"
+    ],
+    "correctAnswer": 2,
+    "solution": "F = mv²/r = 1000 × 100 / 50 = 2000 N.",
+    "tags": [
+      "Important",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "phy_laws_005",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Newton's Laws",
+    "difficulty": "Easy",
+    "question": "Newton's third law of motion states that:",
+    "options": [
+      "For every action there is an equal and opposite reaction",
+      "Force equals mass times acceleration",
+      "An object at rest stays at rest",
+      "Momentum is always conserved"
+    ],
+    "correctAnswer": 0,
+    "solution": "Newton's third law: for every action, there is an equal and opposite reaction.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "phy_laws_006",
+    "subject": "Physics",
+    "class": "11",
+    "unit": "Laws of Motion",
+    "chapter": "Laws of Motion",
+    "topic": "Momentum",
+    "difficulty": "Hard",
+    "question": "A bullet of mass 20 g moving at 300 m/s embeds itself in a block of mass 3 kg initially at rest. Find the velocity of the block+bullet system.",
+    "options": [
+      "1 m/s",
+      "1.5 m/s",
+      "2 m/s",
+      "2.5 m/s"
+    ],
+    "correctAnswer": 2,
+    "solution": "By conservation of momentum: 0.02×300 = (3.02)v → v = 6/3.02 ≈ 2 m/s.",
+    "tags": [
+      "PYQ",
+      "Important"
+    ]
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "chem_bonding_001",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Inorganic Chemistry",
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "topic": "VSEPR Theory",
+    "difficulty": "Medium",
+    "question": "The shape of NH3 molecule according to VSEPR theory is:",
+    "options": [
+      "Linear",
+      "Trigonal planar",
+      "Pyramidal",
+      "Tetrahedral"
+    ],
+    "correctAnswer": 2,
+    "solution": "NH3 has one lone pair and three bond pairs, giving it a pyramidal shape.",
+    "tags": [
+      "NCERT",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "chem_bonding_002",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Inorganic Chemistry",
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "topic": "Hybridization",
+    "difficulty": "Medium",
+    "question": "The hybridization of carbon in ethyne (C2H2) is:",
+    "options": [
+      "sp",
+      "sp2",
+      "sp3",
+      "sp3d"
+    ],
+    "correctAnswer": 0,
+    "solution": "In ethyne, each carbon atom is sp hybridized, forming one sigma bond with hydrogen and one sigma + two pi bonds with the other carbon.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "chem_bonding_003",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Inorganic Chemistry",
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "topic": "Molecular Orbital Theory",
+    "difficulty": "Hard",
+    "question": "According to Molecular Orbital Theory, the bond order of O2 molecule is:",
+    "options": [
+      "1",
+      "1.5",
+      "2",
+      "3"
+    ],
+    "correctAnswer": 2,
+    "solution": "Bond order of O2 = (Nb - Na)/2 = (10-6)/2 = 2.",
+    "tags": [
+      "Important",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "chem_bonding_004",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Inorganic Chemistry",
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "topic": "Bond Polarity",
+    "difficulty": "Easy",
+    "question": "Which of the following molecules is non-polar?",
+    "options": [
+      "HCl",
+      "H2O",
+      "CO2",
+      "NH3"
+    ],
+    "correctAnswer": 2,
+    "solution": "CO2 is a linear molecule with symmetrical charge distribution, making the net dipole moment zero, hence non-polar.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "chem_bonding_005",
+    "subject": "Chemistry",
+    "class": "11",
+    "unit": "Inorganic Chemistry",
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "topic": "Ionic Bonding",
+    "difficulty": "Medium",
+    "question": "Lattice energy of an ionic compound increases with:",
+    "options": [
+      "Increasing ionic radius and decreasing charge",
+      "Decreasing ionic radius and increasing charge",
+      "Increasing ionic radius and increasing charge",
+      "No dependence on radius or charge"
+    ],
+    "correctAnswer": 1,
+    "solution": "Lattice energy is directly proportional to the product of ionic charges and inversely proportional to the distance between ions, so it increases with smaller radius and higher charge.",
+    "tags": [
+      "NCERT",
+      "Important"
+    ]
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "bot_plant_001",
+    "subject": "Botany",
+    "class": "11",
+    "unit": "Diversity in Living World",
+    "chapter": "Plant Kingdom",
+    "topic": "Classification",
+    "difficulty": "Easy",
+    "question": "Which group of plants is known as 'amphibians of the plant kingdom'?",
+    "options": [
+      "Algae",
+      "Bryophytes",
+      "Pteridophytes",
+      "Gymnosperms"
+    ],
+    "correctAnswer": 1,
+    "solution": "Bryophytes require water for reproduction but can also live on land, hence called amphibians of the plant kingdom.",
+    "tags": [
+      "NCERT",
+      "PYQ"
+    ]
+  },
+  {
+    "id": "bot_plant_002",
+    "subject": "Botany",
+    "class": "11",
+    "unit": "Diversity in Living World",
+    "chapter": "Plant Kingdom",
+    "topic": "Gymnosperms",
+    "difficulty": "Medium",
+    "question": "Gymnosperms are characterized by seeds that are:",
+    "options": [
+      "Enclosed in fruits",
+      "Naked, not enclosed in an ovary",
+      "Absent entirely",
+      "Formed inside a pod"
+    ],
+    "correctAnswer": 1,
+    "solution": "In gymnosperms, seeds are 'naked' as they are not enclosed within an ovary/fruit.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "bot_plant_003",
+    "subject": "Botany",
+    "class": "11",
+    "unit": "Diversity in Living World",
+    "chapter": "Plant Kingdom",
+    "topic": "Angiosperms",
+    "difficulty": "Medium",
+    "question": "The double fertilization in angiosperms involves fusion of the male gamete with:",
+    "options": [
+      "Only the egg cell",
+      "Only the secondary nucleus",
+      "Egg cell and secondary nucleus",
+      "Synergids"
+    ],
+    "correctAnswer": 2,
+    "solution": "Double fertilization involves fusion of one male gamete with the egg cell (syngamy) and another with the secondary nucleus (triple fusion).",
+    "tags": [
+      "NCERT",
+      "Important"
+    ]
+  },
+  {
+    "id": "bot_plant_004",
+    "subject": "Botany",
+    "class": "11",
+    "unit": "Diversity in Living World",
+    "chapter": "Plant Kingdom",
+    "topic": "Algae",
+    "difficulty": "Easy",
+    "question": "Which pigment is exclusively found in brown algae?",
+    "options": [
+      "Chlorophyll a",
+      "Fucoxanthin",
+      "Phycoerythrin",
+      "Carotene"
+    ],
+    "correctAnswer": 1,
+    "solution": "Fucoxanthin is the dominant pigment giving brown algae (Phaeophyceae) their characteristic color.",
+    "tags": [
+      "NCERT"
+    ]
+  },
+  {
+    "id": "bot_plant_005",
+    "subject": "Botany",
+    "class": "11",
+    "unit": "Diversity in Living World",
+    "chapter": "Plant Kingdom",
+    "topic": "Pteridophytes",
+    "difficulty": "Hard",
+    "question": "In pteridophytes, the main plant body is the:",
+    "options": [
+      "Gametophyte",
+      "Sporophyte",
+      "Prothallus",
+      "Protonema"
+    ],
+    "correctAnswer": 1,
+    "solution": "In pteridophytes, the sporophyte is the dominant, independent plant body, unlike bryophytes where the gametophyte dominates.",
+    "tags": [
+      "NCERT",
+      "PYQ"
+    ]
+  }
+]
