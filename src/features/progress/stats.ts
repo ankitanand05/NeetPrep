@@ -1,6 +1,6 @@
 import { db } from "@/services/db";
 import { getQuestionsForChapter } from "@/features/questions";
-import type { Subject } from "@/types";
+import type { Difficulty, Subject } from "@/types";
 
 export interface ChapterProgress {
   completed: number;
@@ -9,8 +9,14 @@ export interface ChapterProgress {
   avgTimeSec: number;
 }
 
-export async function getChapterProgress(subject: Subject, chapter: string): Promise<ChapterProgress> {
-  const questions = getQuestionsForChapter(subject, chapter);
+export async function getChapterProgress(
+  subject: Subject,
+  chapter: string,
+  difficulty?: Difficulty
+): Promise<ChapterProgress> {
+  const questions = getQuestionsForChapter(subject, chapter).filter(
+    (q) => !difficulty || q.difficulty === difficulty
+  );
   const ids = new Set(questions.map((q) => q.id));
   const completedRows = (await db.completedQuestions.toArray()).filter((row) => ids.has(row.questionId));
 

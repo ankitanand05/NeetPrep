@@ -2,18 +2,13 @@ import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
 import { ChapterStats } from "@/components/dashboard/ChapterStats";
 import { ChapterActions } from "@/components/dashboard/ChapterActions";
+import { DifficultySectionCard } from "@/components/dashboard/DifficultySectionCard";
 import { EmptyState } from "@/components/common/EmptyState";
-import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { slugToSubject, subjectToSlug } from "@/constants/subjects";
 import { chapterToSlug, getChaptersForSubject, getQuestionsForChapter, slugToChapter } from "@/features/questions";
+import { DIFFICULTY_ORDER } from "@/constants/difficulty";
 import type { Difficulty } from "@/types";
-
-const DIFFICULTY_COLORS: Record<Difficulty, string> = {
-  Easy: "bg-success/10 text-success border-success/20",
-  Medium: "bg-warning/10 text-warning border-warning/20",
-  Hard: "bg-destructive/10 text-destructive border-destructive/20",
-};
 
 export function generateStaticParams() {
   const params: { subject: string; chapter: string }[] = [];
@@ -51,15 +46,6 @@ export default async function ChapterPage({
             {subject} · {meta.unit}
           </p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">{chapter}</h1>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(["Easy", "Medium", "Hard"] as Difficulty[]).map((d) =>
-              difficultyCounts[d] > 0 ? (
-                <Badge key={d} variant="outline" className={DIFFICULTY_COLORS[d]}>
-                  {d}: {difficultyCounts[d]}
-                </Badge>
-              ) : null
-            )}
-          </div>
         </div>
 
         {questions.length === 0 ? (
@@ -71,7 +57,29 @@ export default async function ChapterPage({
         ) : (
           <>
             <ChapterStats subject={subject} chapter={chapter} questionCount={questions.length} />
-            <ChapterActions subject={subject} chapter={chapter} />
+
+            <div>
+              <h2 className="text-lg font-semibold tracking-tight">Practice by difficulty</h2>
+              <p className="text-sm text-muted-foreground">Pick a level to start a focused, section-wise session.</p>
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                {DIFFICULTY_ORDER.map((d: Difficulty) => (
+                  <DifficultySectionCard
+                    key={d}
+                    subject={subject}
+                    chapter={chapter}
+                    difficulty={d}
+                    count={difficultyCounts[d]}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold tracking-tight">More ways to practice</h2>
+              <div className="mt-4">
+                <ChapterActions subject={subject} chapter={chapter} />
+              </div>
+            </div>
           </>
         )}
       </div>
