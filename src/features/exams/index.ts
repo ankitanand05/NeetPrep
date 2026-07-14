@@ -1,6 +1,6 @@
 import { db } from "@/services/db";
 import { nanoid } from "@/lib/id";
-import type { ExamPaper, Subject } from "@/types";
+import type { ExamPaper, PracticeSession, Subject } from "@/types";
 
 export interface PublishExamPaperOptions {
   title: string;
@@ -37,4 +37,30 @@ export async function getExamPaper(id: string): Promise<ExamPaper | undefined> {
 
 export async function deleteExamPaper(id: string): Promise<void> {
   await db.examPapers.delete(id);
+}
+
+export interface UpdateExamPaperOptions {
+  title: string;
+  questionIds: string[];
+  subjects: Subject[];
+  durationMinutes: number;
+  scheduledAt: number;
+}
+
+export async function updateExamPaper(id: string, updates: UpdateExamPaperOptions): Promise<void> {
+  const existing = await db.examPapers.get(id);
+  if (!existing) throw new Error("Exam paper not found.");
+  await db.examPapers.put({ ...existing, ...updates });
+}
+
+export async function getExamAttempts(examPaperId: string): Promise<PracticeSession[]> {
+  return db.practiceSessions.where("examPaperId").equals(examPaperId).toArray();
+}
+
+export async function publishResult(sessionId: string): Promise<void> {
+  await db.practiceSessions.update(sessionId, { resultPublished: true });
+}
+
+export async function unpublishResult(sessionId: string): Promise<void> {
+  await db.practiceSessions.update(sessionId, { resultPublished: false });
 }

@@ -10,6 +10,8 @@ export interface CreateSessionOptions {
   shuffleQuestions?: boolean;
   shuffleOptions?: boolean;
   timeLimitSec?: number | null;
+  examPaperId?: string;
+  studentUsername?: string;
 }
 
 export function createPracticeSession(opts: CreateSessionOptions): PracticeSession {
@@ -21,6 +23,8 @@ export function createPracticeSession(opts: CreateSessionOptions): PracticeSessi
     shuffleQuestions = false,
     shuffleOptions = false,
     timeLimitSec = null,
+    examPaperId,
+    studentUsername,
   } = opts;
 
   const orderedQuestions = shuffleQuestions ? shuffleArray(questions) : questions;
@@ -50,5 +54,8 @@ export function createPracticeSession(opts: CreateSessionOptions): PracticeSessi
       timeTakenSec: 0,
       correct: null,
     })),
+    examPaperId,
+    studentUsername,
+    resultPublished: false,
   };
 }

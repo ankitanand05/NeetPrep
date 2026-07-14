@@ -21,6 +21,7 @@ import { db } from "@/services/db";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth";
 import { ROLE_LABELS, type Role } from "@/constants/auth";
+import { usePendingExamCount } from "@/hooks/usePendingExamCount";
 
 interface NavItem {
   href: string;
@@ -69,6 +70,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const navItems = getNavItems(user?.role);
+  const pendingExamCount = usePendingExamCount(user?.username, user?.role);
 
   // Load user name dynamically from Dexie DB settings
   const settings = useLiveQuery(() => db.settings.get("settings"));
@@ -116,7 +118,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-3">
-                  <item.icon className="size-4 shrink-0" />
+                  <span className="relative">
+                    <item.icon className="size-4 shrink-0" />
+                    {item.href === "/exams" && pendingExamCount > 0 && (
+                      <span className="absolute -top-1.5 -right-1.5 flex size-3.5 items-center justify-center rounded-full bg-destructive text-[8px] font-bold text-destructive-foreground">
+                        {pendingExamCount > 9 ? "9+" : pendingExamCount}
+                      </span>
+                    )}
+                  </span>
                   <span>{item.label}</span>
                 </span>
               </Link>
@@ -197,7 +206,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   />
                 )}
                 <span className="relative z-10 flex flex-col items-center gap-0.5">
-                  <item.icon className="size-5" />
+                  <span className="relative">
+                    <item.icon className="size-5" />
+                    {item.href === "/exams" && pendingExamCount > 0 && (
+                      <span className="absolute -top-1 -right-1.5 flex size-3.5 items-center justify-center rounded-full bg-destructive text-[8px] font-bold text-destructive-foreground">
+                        {pendingExamCount > 9 ? "9+" : pendingExamCount}
+                      </span>
+                    )}
+                  </span>
                   <span>{item.label}</span>
                 </span>
               </Link>

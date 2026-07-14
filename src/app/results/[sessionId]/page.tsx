@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Loader2, RotateCcw, ListChecks, XCircle, LayoutDashboard } from "lucide-react";
+import { Loader2, RotateCcw, ListChecks, XCircle, LayoutDashboard, Lock } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatCard } from "@/components/common/StatCard";
+import { EmptyState } from "@/components/common/EmptyState";
 import { ResultPieChart } from "@/components/charts/ResultPieChart";
 import { DifficultyBarChart } from "@/components/charts/DifficultyBarChart";
 import { TimelineChart } from "@/components/charts/TimelineChart";
@@ -15,11 +16,13 @@ import { loadSession, computeSummary, createPracticeSession, saveSession } from 
 import { getMergedQuestionsByIds } from "@/features/questions";
 import { formatTime, formatPercent } from "@/lib/format";
 import { CheckCircle2, Target, Clock } from "lucide-react";
+import { useAuthStore } from "@/store/auth";
 import type { PracticeSession, Question, SessionSummary } from "@/types";
 
 export default function ResultsPage() {
   const params = useParams<{ sessionId: string }>();
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
   const [session, setSession] = useState<PracticeSession | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [summary, setSummary] = useState<SessionSummary | null>(null);
@@ -70,6 +73,25 @@ export default function ResultsPage() {
       <AppShell>
         <div className="flex min-h-[60vh] items-center justify-center">
           <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        </div>
+      </AppShell>
+    );
+  }
+
+  const isExamResultBlocked =
+    session.mode === "exam" &&
+    user?.role === "student" &&
+    (session.studentUsername !== user.username || !session.resultPublished);
+
+  if (isExamResultBlocked) {
+    return (
+      <AppShell>
+        <div className="mx-auto max-w-4xl">
+          <EmptyState
+            icon={Lock}
+            title="Result not published yet"
+            description="Your teacher hasn't released this exam's result. Check back later or ask your teacher/admin."
+          />
         </div>
       </AppShell>
     );
@@ -176,14 +198,16 @@ export default function ResultsPage() {
         </Card>
 
         <div className="flex flex-wrap justify-center gap-3">
-          <Button onClick={handleRetry}>
-            <RotateCcw className="size-4" />
-            Retry
-          </Button>
+          {session.mode !== "exam" && (
+            <Button onClick={handleRetry}>
+              <RotateCcw className="size-4" />
+              Retry
+            </Button>
+          )}
           <Button variant="outline" render={<Link href={`/review/${session.id}`} />}>
             Review Answers
           </Button>
-          {summary.wrong > 0 && (
+          {session.mode !== "exam" && summary.wrong > 0 && (
             <Button variant="outline" onClick={handlePracticeWrong}>
               <XCircle className="size-4" />
               Practice Wrong Questions

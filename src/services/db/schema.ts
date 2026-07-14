@@ -40,6 +40,26 @@ export class NeetDB extends Dexie {
       customQuestions: "id, subject, chapter, createdBy, createdAt",
       examPapers: "id, createdBy, createdAt",
     });
+    this.version(3).stores({
+      bookmarks: "questionId, createdAt",
+      completedQuestions: "questionId, correct, timestamp, sessionId",
+      wrongQuestions: "questionId, lastAttemptedAt",
+      practiceSessions: "id, subject, chapter, mode, status, startedAt, examPaperId",
+      settings: "id",
+      streaks: "id",
+      customQuestions: "id, subject, chapter, createdBy, createdAt",
+      examPapers: "id, createdBy, createdAt",
+    });
+    this.version(4).stores({
+      bookmarks: "questionId, createdAt",
+      completedQuestions: "questionId, correct, timestamp, sessionId",
+      wrongQuestions: "questionId, lastAttemptedAt",
+      practiceSessions: "id, subject, chapter, mode, status, startedAt, examPaperId, studentUsername",
+      settings: "id",
+      streaks: "id",
+      customQuestions: "id, subject, chapter, createdBy, createdAt",
+      examPapers: "id, createdBy, createdAt",
+    });
   }
 }
 

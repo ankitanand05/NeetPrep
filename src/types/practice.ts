@@ -26,6 +26,12 @@ export interface PracticeSession {
   status: "not_started" | "in_progress" | "paused" | "submitted";
   currentIndex: number;
   attempts: AttemptRecord[];
+  /** Set when mode === "exam": links this attempt to the exam paper it was started from. */
+  examPaperId?: string;
+  /** Set when mode === "exam": the logged-in username who took this attempt. */
+  studentUsername?: string;
+  /** Set when mode === "exam": whether a teacher/admin has published this attempt's result to the student. */
+  resultPublished?: boolean;
 }
 
 export interface SessionSummary {

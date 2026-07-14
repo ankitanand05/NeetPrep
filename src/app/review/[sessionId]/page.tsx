@@ -3,23 +3,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Loader2, ChevronLeft, ChevronRight, Bookmark, ArrowLeft } from "lucide-react";
+import { Loader2, ChevronLeft, ChevronRight, Bookmark, ArrowLeft, Lock } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { EmptyState } from "@/components/common/EmptyState";
 import { cn } from "@/lib/utils";
 import { loadSession } from "@/features/practice";
 import { getMergedQuestionsByIds } from "@/features/questions";
 import { toggleBookmark } from "@/features/practice";
 import { getBookmarkedIdSet } from "@/features/bookmarks";
 import { formatTime } from "@/lib/format";
+import { useAuthStore } from "@/store/auth";
 import type { PracticeSession, Question } from "@/types";
 
 const OPTION_LABELS = ["A", "B", "C", "D"];
 
 export default function ReviewPage() {
   const params = useParams<{ sessionId: string }>();
+  const user = useAuthStore((s) => s.user);
   const [session, setSession] = useState<PracticeSession | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState(0);
@@ -51,6 +54,25 @@ export default function ReviewPage() {
       <AppShell>
         <div className="flex min-h-[60vh] items-center justify-center">
           <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        </div>
+      </AppShell>
+    );
+  }
+
+  const isExamResultBlocked =
+    session.mode === "exam" &&
+    user?.role === "student" &&
+    (session.studentUsername !== user.username || !session.resultPublished);
+
+  if (isExamResultBlocked) {
+    return (
+      <AppShell>
+        <div className="mx-auto max-w-4xl">
+          <EmptyState
+            icon={Lock}
+            title="Result not published yet"
+            description="Your teacher hasn't released this exam's result. Check back later or ask your teacher/admin."
+          />
         </div>
       </AppShell>
     );

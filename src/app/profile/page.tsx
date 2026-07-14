@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/services/db";
 import { AppShell } from "@/components/layout/AppShell";
 import { getOverallStats } from "@/features/progress";
+import { computeSummary } from "@/features/practice";
+import { getMergedQuestionsByIds } from "@/features/questions";
+import { useAuthStore } from "@/store/auth";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { EmptyState } from "@/components/common/EmptyState";
 import { formatPercent, formatTime } from "@/lib/format";
 import { getQuestionsForSubject } from "@/features/questions";
 import {
@@ -23,7 +28,8 @@ import {
   XCircle,
   Percent,
   RefreshCw,
-  AlertTriangle
+  AlertTriangle,
+  ClipboardList,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -32,11 +38,39 @@ import type { AppSettings, Subject } from "@/types";
 const SUBJECTS: Subject[] = ["Physics", "Chemistry", "Botany", "Zoology"];
 
 export default function ProfilePage() {
+  const user = useAuthStore((s) => s.user);
   const [name, setName] = useState("");
   const [dailyGoal, setDailyGoal] = useState(20);
   const [targetScore, setTargetScore] = useState(650);
   const [saving, setSaving] = useState(false);
   const [resetConfirm, setResetConfirm] = useState(false);
+
+  const examAttempts = useLiveQuery(
+    async () => {
+      if (!user) return [];
+      const sessions = await db.practiceSessions.where("studentUsername").equals(user.username).toArray();
+      return sessions
+        .filter((s) => s.mode === "exam")
+        .sort((a, b) => (b.startedAt ?? 0) - (a.startedAt ?? 0));
+    },
+    [user?.username],
+    []
+  );
+
+  const examResultRows = useLiveQuery(
+    async () => {
+      const rows = await Promise.all(
+        (examAttempts ?? []).map(async (session) => {
+          if (session.status !== "submitted") return { session, summary: null };
+          const questions = await getMergedQuestionsByIds(session.questionIds);
+          return { session, summary: computeSummary(session, questions) };
+        })
+      );
+      return rows;
+    },
+    [examAttempts],
+    []
+  );
 
   // Fetch overall statistics reactively
   const stats = useLiveQuery(() => getOverallStats());
@@ -192,6 +226,67 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </div>
+
+        {user?.role === "student" && (
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold">My Exam Results</CardTitle>
+              <CardDescription className="text-xs">
+                Exams you've taken. Scores appear once your teacher or admin publishes them.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {examResultRows.length === 0 ? (
+                <EmptyState
+                  icon={ClipboardList}
+                  title="No exam attempts yet"
+                  description="Attempts you take from the Exams page will show up here."
+                />
+              ) : (
+                <div className="grid gap-3">
+                  {examResultRows.map(({ session, summary }) => {
+                    const isPublished = session.status === "submitted" && session.resultPublished && summary;
+                    const isAwaiting = session.status === "submitted" && !session.resultPublished;
+                    const isInProgress = session.status === "in_progress" || session.status === "paused";
+
+                    return (
+                      <div
+                        key={session.id}
+                        className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border/60 p-3 text-sm"
+                      >
+                        <div>
+                          <p className="font-medium">{session.chapter}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {session.subject} ·{" "}
+                            {session.submittedAt ? new Date(session.submittedAt).toLocaleString() : "Not submitted"}
+                          </p>
+                        </div>
+                        {isPublished ? (
+                          <div className="flex items-center gap-3">
+                            <Badge variant="outline" className="bg-success/10 text-success border-success/20">
+                              {summary.correct}/{summary.total} · {formatPercent(summary.accuracy)}
+                            </Badge>
+                            <Button variant="outline" size="sm" render={<Link href={`/results/${session.id}`} />}>
+                              View Result
+                            </Button>
+                          </div>
+                        ) : isAwaiting ? (
+                          <Badge variant="secondary">Awaiting result</Badge>
+                        ) : isInProgress ? (
+                          <Button size="sm" render={<Link href={`/practice/${session.id}`} />}>
+                            Resume
+                          </Button>
+                        ) : (
+                          <Badge variant="outline">Not started</Badge>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
         <div className="grid gap-6 md:grid-cols-3">
           {/* Settings Section */}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Loader2, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PracticeTopBar } from "@/components/practice/PracticeTopBar";
@@ -55,9 +56,14 @@ export default function PracticeScreenPage() {
 
   useEffect(() => {
     if (session?.status === "submitted") {
-      router.push(`/results/${params.sessionId}`);
+      if (session.mode === "exam") {
+        toast.success("Exam submitted — your result will be available once your teacher publishes it.");
+        router.push("/exams");
+      } else {
+        router.push(`/results/${params.sessionId}`);
+      }
     }
-  }, [session?.status, params.sessionId, router]);
+  }, [session?.status, session?.mode, params.sessionId, router]);
 
   async function handleSubmit() {
     await submit();
