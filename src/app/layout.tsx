@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { ServiceWorkerRegister } from "@/components/layout/ServiceWorkerRegister";
+import { AuthGate } from "@/components/auth/AuthGate";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NEET Practice — Chapter-wise Question Practice",
+  title: "NEETPREP — Chapter-wise Question Practice",
   description: "A premium, offline-first NEET question practice platform.",
   manifest: "/manifest.json",
 };
@@ -42,7 +43,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TooltipProvider delay={150}>
-            {children}
+            <AuthGate>{children}</AuthGate>
             <Toaster richColors position="top-center" />
           </TooltipProvider>
           <ServiceWorkerRegister />

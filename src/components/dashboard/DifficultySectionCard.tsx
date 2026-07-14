@@ -1,24 +1,20 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Zap, Flame, Trophy, PlayCircle, Timer, Lock } from "lucide-react";
+import Link from "next/link";
+import { Zap, Flame, Trophy, Lock, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { useChapterProgress } from "@/hooks/useChapterProgress";
-import { createPracticeSession, saveSession } from "@/features/practice";
-import { getQuestionsForChapter } from "@/features/questions";
-import { formatPercent } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { ChapterProgressBadge } from "@/components/dashboard/ChapterProgressBadge";
+import { subjectToSlug } from "@/constants/subjects";
+import { chapterToSlug } from "@/features/questions";
 import {
   DIFFICULTY_COLORS,
   DIFFICULTY_ICON_CLASSES,
   DIFFICULTY_RING_CLASSES,
   DIFFICULTY_DESCRIPTIONS,
+  difficultyToSlug,
 } from "@/constants/difficulty";
+import { PRACTICE_SET_SIZE } from "@/constants/practice";
+import { cn } from "@/lib/utils";
 import type { Difficulty, Subject } from "@/types";
 
 const DIFFICULTY_ICON: Record<Difficulty, typeof Zap> = {
@@ -26,8 +22,6 @@ const DIFFICULTY_ICON: Record<Difficulty, typeof Zap> = {
   Medium: Flame,
   Hard: Trophy,
 };
-
-const TIME_PER_QUESTION_SEC = 60;
 
 export function DifficultySectionCard({
   subject,
@@ -40,43 +34,15 @@ export function DifficultySectionCard({
   difficulty: Difficulty;
   count: number;
 }) {
-  const router = useRouter();
-  const [loading, setLoading] = useState<"practice" | "timed" | null>(null);
-  const progress = useChapterProgress(subject, chapter, difficulty);
   const Icon = DIFFICULTY_ICON[difficulty];
   const locked = count === 0;
+  const numSets = Math.ceil(count / PRACTICE_SET_SIZE);
 
-  async function start(mode: "practice" | "timed") {
-    setLoading(mode);
-    try {
-      const questions = getQuestionsForChapter(subject, chapter).filter((q) => q.difficulty === difficulty);
-      if (questions.length === 0) {
-        toast.info(`No ${difficulty.toLowerCase()} questions in this chapter yet.`);
-        return;
-      }
-      const session = createPracticeSession({
-        subject,
-        chapter,
-        mode: mode === "timed" ? "timed" : "practice",
-        questions,
-        shuffleQuestions: true,
-        timeLimitSec: mode === "timed" ? questions.length * TIME_PER_QUESTION_SEC : null,
-      });
-      await saveSession(session);
-      router.push(`/practice/${session.id}`);
-    } finally {
-      setLoading(null);
-    }
-  }
-
-  const completed = progress?.completed ?? 0;
-  const percentDone = count > 0 ? (completed / count) * 100 : 0;
-
-  return (
+  const card = (
     <Card
       className={cn(
         "border-border/60 transition-all",
-        locked ? "opacity-60" : `hover:shadow-md ${DIFFICULTY_RING_CLASSES[difficulty]}`
+        locked ? "opacity-60" : `hover:shadow-md hover:-translate-y-0.5 ${DIFFICULTY_RING_CLASSES[difficulty]}`
       )}
     >
       <CardHeader>
@@ -99,33 +65,24 @@ export function DifficultySectionCard({
           </div>
         ) : (
           <>
-            <div className="space-y-1.5">
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>
-                  {completed}/{count} done
-                </span>
-                <span>{formatPercent(progress?.accuracy ?? 0)} accuracy</span>
-              </div>
-              <Progress value={percentDone} />
-            </div>
-            <div className="flex gap-2">
-              <Button className="flex-1" disabled={loading !== null} onClick={() => start("practice")}>
-                <PlayCircle className="size-4" />
-                {loading === "practice" ? "Loading…" : "Practice"}
-              </Button>
-              <Button
-                variant="outline"
-                className="flex-1"
-                disabled={loading !== null}
-                onClick={() => start("timed")}
-              >
-                <Timer className="size-4" />
-                {loading === "timed" ? "Loading…" : "Timed"}
-              </Button>
+            <ChapterProgressBadge subject={subject} chapter={chapter} difficulty={difficulty} count={count} />
+            <div className="flex items-center justify-between rounded-lg border border-border/60 px-3 py-2 text-sm">
+              <span className="text-muted-foreground">
+                {numSets} set{numSets === 1 ? "" : "s"} · up to {PRACTICE_SET_SIZE} Qs each
+              </span>
+              <ChevronRight className="size-4 text-muted-foreground" />
             </div>
           </>
         )}
       </CardContent>
     </Card>
+  );
+
+  if (locked) return card;
+
+  return (
+    <Link href={`/subjects/${subjectToSlug(subject)}/${chapterToSlug(chapter)}/${difficultyToSlug(difficulty)}`}>
+      {card}
+    </Link>
   );
 }

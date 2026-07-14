@@ -25,3 +25,17 @@ export const DIFFICULTY_DESCRIPTIONS: Record<Difficulty, string> = {
   Medium: "Build exam-level speed & accuracy",
   Hard: "Challenge yourself with tricky questions",
 };
+
+export function difficultyToSlug(difficulty: Difficulty): string {
+  return difficulty.toLowerCase();
+}
+
+const DIFFICULTY_SLUGS: Record<string, Difficulty> = {
+  easy: "Easy",
+  medium: "Medium",
+  hard: "Hard",
+};
+
+export function slugToDifficulty(slug: string): Difficulty | undefined {
+  return DIFFICULTY_SLUGS[slug.toLowerCase()];
+}

@@ -1,9 +1,9 @@
 import { nanoid } from "@/lib/id";
 import { shuffleArray, shuffledIndexOrder } from "@/lib/shuffle";
-import type { PracticeMode, PracticeSession, Question } from "@/types";
+import type { PracticeMode, PracticeSession, Question, Subject } from "@/types";
 
 export interface CreateSessionOptions {
-  subject: Question["subject"];
+  subject: Subject | "Mixed";
   chapter: string;
   mode: PracticeMode;
   questions: Question[];

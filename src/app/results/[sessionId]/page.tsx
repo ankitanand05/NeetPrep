@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2, RotateCcw, ListChecks, XCircle, LayoutDashboard } from "lucide-react";
+import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatCard } from "@/components/common/StatCard";
@@ -11,7 +12,7 @@ import { ResultPieChart } from "@/components/charts/ResultPieChart";
 import { DifficultyBarChart } from "@/components/charts/DifficultyBarChart";
 import { TimelineChart } from "@/components/charts/TimelineChart";
 import { loadSession, computeSummary, createPracticeSession, saveSession } from "@/features/practice";
-import { getQuestionsByIds } from "@/features/questions";
+import { getMergedQuestionsByIds } from "@/features/questions";
 import { formatTime, formatPercent } from "@/lib/format";
 import { CheckCircle2, Target, Clock } from "lucide-react";
 import type { PracticeSession, Question, SessionSummary } from "@/types";
@@ -27,7 +28,7 @@ export default function ResultsPage() {
     (async () => {
       const loaded = await loadSession(params.sessionId);
       if (!loaded) return;
-      const qs = getQuestionsByIds(loaded.questionIds);
+      const qs = await getMergedQuestionsByIds(loaded.questionIds);
       setSession(loaded);
       setQuestions(qs);
       setSummary(computeSummary(loaded, qs));
@@ -66,9 +67,11 @@ export default function ResultsPage() {
 
   if (!session || !summary) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-muted-foreground" />
-      </div>
+      <AppShell>
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        </div>
+      </AppShell>
     );
   }
 
@@ -80,7 +83,7 @@ export default function ResultsPage() {
     : null;
 
   return (
-    <div className="min-h-screen px-4 py-10 md:px-8">
+    <AppShell>
       <div className="mx-auto max-w-4xl space-y-8">
         <div className="text-center">
           <p className="text-sm text-muted-foreground">
@@ -192,6 +195,6 @@ export default function ResultsPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

@@ -1,6 +1,6 @@
 import { CHAPTER_FILES } from "@/data/manifest";
 import { getSyllabusForSubject } from "@/constants/syllabus";
-import type { ChapterMeta, Question, Subject } from "@/types";
+import type { ChapterMeta, Question, SchoolClass, Subject } from "@/types";
 
 let allQuestionsCache: Question[] | null = null;
 
@@ -48,14 +48,41 @@ export function getChapterMeta(subject: Subject, chapter: string): ChapterMeta |
   return getChaptersForSubject(subject).find((c) => c.chapter === chapter);
 }
 
-export function chapterToSlug(chapter: string): string {
-  return chapter
+export function getChapterCountsByClass(subjects: Subject[]): Record<SchoolClass, number> {
+  const counts: Record<SchoolClass, number> = { "11": 0, "12": 0 };
+  for (const subject of subjects) {
+    for (const chapter of getChaptersForSubject(subject)) {
+      counts[chapter.class] += 1;
+    }
+  }
+  return counts;
+}
+
+function slugify(text: string): string {
+  return text
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-");
 }
 
+export function chapterToSlug(chapter: string): string {
+  return slugify(chapter);
+}
+
 export function slugToChapter(subject: Subject, slug: string): string | undefined {
   return getChaptersForSubject(subject).find((c) => chapterToSlug(c.chapter) === slug)?.chapter;
+}
+
+export function unitToSlug(unit: string): string {
+  return slugify(unit);
+}
+
+/**
+ * Unit names can repeat across classes for the same subject (e.g. Chemistry's
+ * "Physical Chemistry" exists in both Class 11 and 12), so resolving a unit
+ * slug always requires a class to disambiguate.
+ */
+export function slugToUnit(subject: Subject, schoolClass: SchoolClass, slug: string): string | undefined {
+  return getChaptersForSubject(subject).find((c) => c.class === schoolClass && unitToSlug(c.unit) === slug)?.unit;
 }

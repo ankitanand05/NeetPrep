@@ -43,7 +43,7 @@ export default function PracticeScreenPage() {
         setNotFound(true);
         return;
       }
-      hydrate(loaded);
+      await hydrate(loaded);
       const bookmarks = await getBookmarkedIdSet(loaded.questionIds);
       if (active) usePracticeSessionStore.setState({ bookmarkedIds: bookmarks });
     })();
@@ -53,9 +53,14 @@ export default function PracticeScreenPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.sessionId]);
 
+  useEffect(() => {
+    if (session?.status === "submitted") {
+      router.push(`/results/${params.sessionId}`);
+    }
+  }, [session?.status, params.sessionId, router]);
+
   async function handleSubmit() {
     await submit();
-    router.push(`/results/${params.sessionId}`);
   }
 
   if (notFound) {
@@ -81,7 +86,7 @@ export default function PracticeScreenPage() {
           {session.subject} · {session.chapter}
         </h1>
         <p className="max-w-md text-muted-foreground">
-          {questions.length} questions · {session.mode === "timed" ? "Timed mode" : "Untimed practice"}. The timer
+          {questions.length} questions · {session.timeLimitSec !== null ? "Timed" : "Untimed practice"}. The timer
           starts as soon as you click Start.
         </p>
         <Button size="lg" onClick={start}>

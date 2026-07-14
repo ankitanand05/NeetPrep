@@ -3,6 +3,8 @@ import type {
   AppSettings,
   Bookmark,
   CompletedQuestion,
+  CustomQuestion,
+  ExamPaper,
   PracticeSession,
   StreakData,
   WrongQuestion,
@@ -15,6 +17,8 @@ export class NeetDB extends Dexie {
   practiceSessions!: EntityTable<PracticeSession, "id">;
   settings!: EntityTable<AppSettings, "id">;
   streaks!: EntityTable<StreakData, "id">;
+  customQuestions!: EntityTable<CustomQuestion, "id">;
+  examPapers!: EntityTable<ExamPaper, "id">;
 
   constructor() {
     super("neet-practice-db");
@@ -25,6 +29,16 @@ export class NeetDB extends Dexie {
       practiceSessions: "id, subject, chapter, mode, status, startedAt",
       settings: "id",
       streaks: "id",
+    });
+    this.version(2).stores({
+      bookmarks: "questionId, createdAt",
+      completedQuestions: "questionId, correct, timestamp, sessionId",
+      wrongQuestions: "questionId, lastAttemptedAt",
+      practiceSessions: "id, subject, chapter, mode, status, startedAt",
+      settings: "id",
+      streaks: "id",
+      customQuestions: "id, subject, chapter, createdBy, createdAt",
+      examPapers: "id, createdBy, createdAt",
     });
   }
 }

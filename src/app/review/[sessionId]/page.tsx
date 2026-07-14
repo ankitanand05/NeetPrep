@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Loader2, ChevronLeft, ChevronRight, Bookmark, ArrowLeft } from "lucide-react";
+import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { loadSession } from "@/features/practice";
-import { getQuestionsByIds } from "@/features/questions";
+import { getMergedQuestionsByIds } from "@/features/questions";
 import { toggleBookmark } from "@/features/practice";
 import { getBookmarkedIdSet } from "@/features/bookmarks";
 import { formatTime } from "@/lib/format";
@@ -28,7 +29,7 @@ export default function ReviewPage() {
     (async () => {
       const loaded = await loadSession(params.sessionId);
       if (!loaded) return;
-      const qs = getQuestionsByIds(loaded.questionIds);
+      const qs = await getMergedQuestionsByIds(loaded.questionIds);
       setSession(loaded);
       setQuestions(qs);
       setBookmarkedIds(await getBookmarkedIdSet(loaded.questionIds));
@@ -47,9 +48,11 @@ export default function ReviewPage() {
 
   if (!session || questions.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-muted-foreground" />
-      </div>
+      <AppShell>
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        </div>
+      </AppShell>
     );
   }
 
@@ -61,7 +64,7 @@ export default function ReviewPage() {
   const isUngraded = question.correctAnswer === null && attempt.selectedOption !== null;
 
   return (
-    <div className="min-h-screen px-4 py-8 md:px-8">
+    <AppShell>
       <div className="mx-auto max-w-3xl space-y-6">
         <div className="flex items-center justify-between">
           <Button variant="ghost" render={<Link href={`/results/${session.id}`} />}>
@@ -139,6 +142,6 @@ export default function ReviewPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

@@ -1,6 +1,6 @@
 {
-  "name": "NEET Practice Platform",
-  "short_name": "NEET Practice",
+  "name": "NEETPREP",
+  "short_name": "NEETPREP",
   "description": "Chapter-wise NEET question practice, offline-first.",
   "start_url": "/dashboard",
   "scope": "/",

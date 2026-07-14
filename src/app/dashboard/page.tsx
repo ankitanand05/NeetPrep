@@ -1,9 +1,9 @@
 import { AppShell } from "@/components/layout/AppShell";
-import { SubjectCard } from "@/components/dashboard/SubjectCard";
+import { SectionCard } from "@/components/dashboard/SectionCard";
 import { ContinuePracticeCard } from "@/components/dashboard/ContinuePracticeCard";
 import { OverallStats } from "@/components/dashboard/OverallStats";
-import { SUBJECTS } from "@/constants/subjects";
-import { getChaptersForSubject } from "@/features/questions";
+import { SUBJECT_SECTIONS } from "@/constants/subjects";
+import { getChapterCountsByClass } from "@/features/questions";
 
 export default function DashboardPage() {
   return (
@@ -20,12 +20,12 @@ export default function DashboardPage() {
 
         <div>
           <h2 className="mb-4 text-lg font-semibold">Subjects</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {SUBJECTS.map((subject) => (
-              <SubjectCard
-                key={subject.key}
-                subject={subject}
-                chapterCount={getChaptersForSubject(subject.key).length}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SUBJECT_SECTIONS.map((section) => (
+              <SectionCard
+                key={section.key}
+                section={section}
+                classCounts={getChapterCountsByClass(section.subjects)}
               />
             ))}
           </div>

@@ -21,6 +21,11 @@ export interface Question {
   tags: QuestionTag[];
 }
 
+export interface CustomQuestion extends Question {
+  createdBy: string;
+  createdAt: number;
+}
+
 export interface ChapterMeta {
   subject: Subject;
   class: SchoolClass;

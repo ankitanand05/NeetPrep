@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getQuestionsByIds } from "@/features/questions";
+import { getMergedQuestionsByIds } from "@/features/questions";
 import { recordSubmission, saveSession, toggleBookmark } from "@/features/practice";
 import type { PracticeSession, Question } from "@/types";
 
@@ -11,7 +11,7 @@ interface PracticeSessionState {
   questionStartedAt: number | null;
   timerHandle: ReturnType<typeof setInterval> | null;
 
-  hydrate: (session: PracticeSession) => void;
+  hydrate: (session: PracticeSession) => Promise<void>;
   start: () => void;
   pause: () => void;
   resume: () => void;
@@ -34,8 +34,8 @@ export const usePracticeSessionStore = create<PracticeSessionState>((set, get) =
   questionStartedAt: null,
   timerHandle: null,
 
-  hydrate: (session) => {
-    const questions = getQuestionsByIds(session.questionIds);
+  hydrate: async (session) => {
+    const questions = await getMergedQuestionsByIds(session.questionIds);
     set({ session, questions, elapsedSec: 0, questionStartedAt: null });
   },
 
@@ -75,7 +75,7 @@ export const usePracticeSessionStore = create<PracticeSessionState>((set, get) =
     const { session, elapsedSec } = get();
     if (!session || session.status !== "in_progress") return;
     const nextElapsed = elapsedSec + 1;
-    if (session.mode === "timed" && session.timeLimitSec !== null && nextElapsed >= session.timeLimitSec) {
+    if (session.timeLimitSec !== null && nextElapsed >= session.timeLimitSec) {
       set({ elapsedSec: session.timeLimitSec });
       void get().submit();
       return;

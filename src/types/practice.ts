@@ -1,6 +1,6 @@
 import type { Difficulty, Subject } from "./question";
 
-export type PracticeMode = "practice" | "timed" | "revision" | "wrong" | "bookmarks";
+export type PracticeMode = "practice" | "timed" | "revision" | "wrong" | "bookmarks" | "exam";
 export type QuestionStatus = "unanswered" | "answered" | "skipped" | "marked";
 
 export interface AttemptRecord {
@@ -13,7 +13,7 @@ export interface AttemptRecord {
 
 export interface PracticeSession {
   id: string;
-  subject: Subject;
+  subject: Subject | "Mixed";
   chapter: string;
   mode: PracticeMode;
   questionIds: string[];

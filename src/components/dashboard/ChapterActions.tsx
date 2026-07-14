@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { RotateCcw, XCircle, Bookmark as BookmarkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { db } from "@/services/db";
-import { getQuestionsForChapter } from "@/features/questions";
+import { getMergedQuestionsForChapter } from "@/features/questions";
 import { createPracticeSession, saveSession } from "@/features/practice";
 import type { PracticeMode, Question, Subject } from "@/types";
 
@@ -19,7 +19,7 @@ export function ChapterActions({ subject, chapter }: { subject: Subject; chapter
   async function startSession(mode: HistoryMode) {
     setLoadingMode(mode);
     try {
-      const chapterQuestions = getQuestionsForChapter(subject, chapter);
+      const chapterQuestions = await getMergedQuestionsForChapter(subject, chapter);
       let questions: Question[] = chapterQuestions;
 
       if (mode === "wrong") {

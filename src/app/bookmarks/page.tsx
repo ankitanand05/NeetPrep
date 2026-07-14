@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/services/db";
 import { AppShell } from "@/components/layout/AppShell";
-import { getAllQuestions, getQuestionsByIds } from "@/features/questions";
+import { getMergedQuestionsByIds } from "@/features/questions";
 import { createPracticeSession, saveSession, toggleBookmark } from "@/features/practice";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ export default function BookmarksPage() {
   const bookmarkedQuestions = useLiveQuery(async () => {
     const bookmarkRecords = await db.bookmarks.toArray();
     const ids = bookmarkRecords.map((b) => b.questionId);
-    return getQuestionsByIds(ids);
+    return getMergedQuestionsByIds(ids);
   }, [], [] as Question[]);
 
   // Group bookmarks by subject and then by chapter
