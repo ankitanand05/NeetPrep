@@ -34,7 +34,10 @@ export function computeSummary(session: PracticeSession, questions: Question[]):
     if (attempt.status === "answered" && attempt.selectedOption !== null) {
       if (!isGraded) {
         ungraded += 1;
-      } else if (attempt.correct) {
+      } else if (attempt.selectedOption === question.correctAnswer) {
+        // Recomputed from the current answer key rather than the attempt's stored
+        // `correct` flag, so grading stays accurate even if the key arrives after
+        // the student already submitted (e.g. exam attempts taken while ungraded).
         correct += 1;
         byDifficulty[difficulty].correct += 1;
         byTopic[question.topic].correct += 1;

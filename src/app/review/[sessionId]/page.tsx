@@ -81,9 +81,13 @@ export default function ReviewPage() {
   const question = questions[index];
   const attempt = session.attempts[index];
   const isBookmarked = bookmarkedIds.has(question.id);
-  const isCorrect = attempt.correct === true;
-  const isWrong = attempt.correct === false;
-  const isUngraded = question.correctAnswer === null && attempt.selectedOption !== null;
+  // Recomputed from the current answer key (not the attempt's stored `correct`
+  // flag) so grading stays accurate even if the key arrives after submission.
+  const isGraded = question.correctAnswer !== null;
+  const hasAnswer = attempt.selectedOption !== null;
+  const isCorrect = isGraded && hasAnswer && attempt.selectedOption === question.correctAnswer;
+  const isWrong = isGraded && hasAnswer && attempt.selectedOption !== question.correctAnswer;
+  const isUngraded = !isGraded && hasAnswer;
 
   return (
     <AppShell>
